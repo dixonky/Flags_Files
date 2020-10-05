@@ -67,27 +67,27 @@ func walkRename(files *[]string, choice string) filepath.WalkFunc {
 				if ty == fileType || ty == "all"{
 
 					if name != "none" {
-						addUse(name, info)
+						addUse(name)
 					}
 					//Loop through choices, calling functions when set by flag
 					for _, val := range c {
 						if (val == "remAll" && name == "none")|| (val == " remAll" && name == "none"){
-							removeAll(info)
+							removeAll()
 						}
 						if val == "remNums" || val == " remNums"{
-							removeNum(info)
+							removeNum()
 						}
 						if val == "remSpec" || val == " remSpec"{
-							removeSpecChars(info)
+							removeSpecChars()
 						}
 						if val == "addDate" || val == " addDate"{
 							addDate(info)
 						}
 						if val == "addDir" || val == " addDir"{
-							addDir(info)
+							addDir()
 						}
 						if val == "addInc" || val == " addInc"{
-							addInc(info)
+							addInc()
 						}
 					}
 		
@@ -138,7 +138,7 @@ func addDate(fileInfo os.FileInfo){
 	fileName = newName
 }
 //Rename Add Directory Function
-func addDir(fileInfo os.FileInfo){
+func addDir(){
 	dir := dirPath
 	index := 0
 	s := []byte("\\");
@@ -155,24 +155,24 @@ func addDir(fileInfo os.FileInfo){
 	fileName = newName
 }
 //Rename Add Incrementor Function
-func addInc(fileInfo os.FileInfo){
+func addInc(){
 	counter++
 	newName = fileName + sepChar + fmt.Sprint(counter)
 	fileName = newName
 }
 //Rename Add Incrementor Function
-func addUse(name string, fileInfo os.FileInfo){
+func addUse(name string){
 	newName = name;
 	fileName = newName
 }
 
 //RENAME REMOVE FUNCTIONS
 //Rename Remove Numbers Function
-func removeAll(fileInfo os.FileInfo){
+func removeAll(){
 	fileName = ""
 }
 //Rename Remove Numbers Function
-func removeNum(fileInfo os.FileInfo){
+func removeNum(){
 	nameSlice := strings.Split(fileName,"")
 	for i := len(nameSlice)-1; i >= 0; i-- {
 		if _, err := strconv.Atoi(nameSlice[i]); err == nil {
@@ -188,7 +188,7 @@ func removeNum(fileInfo os.FileInfo){
 	fileName = newName
 }
 //Rename Remove Special Characters Function
-func removeSpecChars(fileInfo os.FileInfo){
+func removeSpecChars(){
 	specChars := []byte{'!','@','#','$','%','^','&','*','(',')','_','-','[',']',';','.'}
 
 	nameSlice := strings.Split(fileName,"")
